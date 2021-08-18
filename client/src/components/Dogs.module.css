@@ -1,0 +1,21 @@
+.container {
+    border-radius: 10px;
+    display: flex;
+    width: 360px;
+    flex-flow: column wrap;
+    border: 1px solid rgb(126, 123, 123); /* outline no deja hacer border-radius */
+    margin: 10px auto;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.dogImages {
+    width: 200px;
+    height: 150px;
+}
+
+.list {
+    display: flex;
+    flex-flow:wrap
+}
