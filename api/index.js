@@ -28,13 +28,13 @@ const dogsTest =[
     localDB: true,
     name:'dog1',
     height: 'height1',
-    weight: 'weight1'
+    weight: '1 - 10'
   },
   {
     localDB: true,
     name:'dog2',
     height: 'height2',
-    weight: 'weight2'
+    weight: '2 - 8'
   }
 ];
 

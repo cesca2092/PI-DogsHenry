@@ -24,11 +24,11 @@ const buildLocalArray = (array) => {
             image: null,
             name: dogDB.name,
             temperament,
+            weight: dogDB.weight,
             localDB: dogDB.localDB
         }
         return dog;            
     });
-
     return localDog;
 
 }
@@ -43,8 +43,7 @@ const consultaLocal = async (name) => {
                     [Op.substring]: name
                 }
             }
-        })
-
+        });
     return buildLocalArray(dogsDB);
 }
 
@@ -70,12 +69,16 @@ const consultaAPI = async (name) => {
         })
         :dogFilter.map(dogAPI => {
             let temperament = dogAPI.temperament && dogAPI.temperament.split(',').map(e=>e.trim().toLowerCase());
+            let trymetricweight = dogAPI.weight.metric !== 'NaN' ? dogAPI.weight.metric : dogAPI.weight.imperial;
+            let weight = dogAPI.weight.metric === 'NaN' ? trymetricweight.split(' – ').map(e=>e*0.453592).map(e=>Math.ceil(e)).join('-')
+                            : trymetricweight;
             let dog = {
                 id: dogAPI.id,
                 image: dogAPI.image.url,
                 name: dogAPI.name.toLowerCase(),
                 temperament,
-                localDB: null
+                weight,
+                localDB: false
             }
             return dog;
         });
@@ -84,14 +87,19 @@ const consultaAPI = async (name) => {
     const dogArray = name ?
         dogs.map(dogAPI => {
             let temperament = dogAPI.breeds[0].temperament && dogAPI.breeds[0].temperament.split(',').map(e=>e.trim().toLowerCase());
+            let trymetricweight = dogAPI.breeds[0].weight.metric !== 'NaN' ? dogAPI.breeds[0].weight.metric : dogAPI.breeds[0].weight.imperial;
+            let weight = dogAPI.breeds[0].weight.metric === 'NaN' ? trymetricweight.split(' – ').map(e=>e*0.453592).map(e=>Math.ceil(e)).join('-')
+                            : trymetricweight;
             let dog = {
                 id: dogAPI.breeds[0].id,
                 image: dogAPI.url,
                 name: dogAPI.breeds[0].name.toLowerCase(),
                 temperament,
-                localDB: null
+                weight,
+                localDB: false
             }
             return dog;
+            
         })
         :
         dogs;
@@ -133,7 +141,12 @@ const apiArrayById = async (id) => {
 
     let image = dog[0].image.url ? 
                     dog[0].image.url
-                    : 'Dog Without Picture'
+                    : 'Dog Without Picture';
+
+    let trymetricweight = dog[0].weight.metric !== 'NaN' ? dog[0].weight.metric : dog[0].weight.imperial;
+    let weight = dog[0].weight.metric === 'NaN' ? trymetricweight.split(' – ').map(e=>e*0.453592).map(e=>Math.ceil(e)).join('-')
+                            : trymetricweight;
+        
     
     return [{
         id: dog[0].id,
@@ -141,7 +154,7 @@ const apiArrayById = async (id) => {
         name: dog[0].name.toLowerCase(),
         temperament,
         height: dog[0].height.metric,
-        weight: dog[0].weight.metric,
+        weight,
         life_span: dog[0].life_span.split('years')[0].trim(),
         localDB: null
     }] 
@@ -160,12 +173,12 @@ router.get('/', async (req,res) => {
 
         const data = local.length > 0 || api.length > 0 ? 
                         [...local, ...api] 
-                        : { msg:"Cant't find dog breed"};
+                        : { msg:"Can't find dog breed"};
 
         res.json(data);
 
     } catch (error) {
-        res.json(error);
+        console.log(error);
     }
     
 });
@@ -176,7 +189,7 @@ router.get('/:idBreed', async (req,res) => {
     let consulta = [];
 
     try {
-        if(parseInt(idBreed,10)){
+        if(!idBreed.includes('-')){
             consulta = await apiArrayById(idBreed);
             res.json(consulta);
         } else {
@@ -190,7 +203,7 @@ router.get('/:idBreed', async (req,res) => {
             
         }
     } catch (error) {
-        res.json(error)
+        console.log(error)
     }
 
 });

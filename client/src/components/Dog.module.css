@@ -19,9 +19,3 @@
     display: flex;
     align-self: center;
 }
-
-.list {
-    display: flex;
-    flex-flow:wrap;
-    /* align-items: center; */
-}
