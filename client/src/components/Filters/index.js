@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilterDogs, restartOffsetLimit, setDogsPerPage } from '../actions';
+import { setFilterDogs, restartOffsetLimit, setDogsPerPage } from '../../actions';
+import styles from './Filters.module.css'
 
 const Filters = () => {
 
@@ -14,7 +15,7 @@ const Filters = () => {
 
 
     return (
-        <>
+        <div className={styles.container}>
             {/* <h2>Filters here</h2> */}
             <form
                 onSubmit = {e => {
@@ -42,7 +43,7 @@ const Filters = () => {
                 <select
                     onChange={e => setFilter(e.target.value)}
                 >
-                    <option value=''>-- Filter by Local or Saved --</option>
+                    <option value=''>-- Filter by Local or Created --</option>
                     <option value='all'>All</option>
                     <option value="localBreeds">Local Breeds</option>
                     <option value="createdBreeds">Created Breeds</option>
@@ -52,13 +53,14 @@ const Filters = () => {
                     <input
                         type="submit"
                         value="Apply"
+                        className={styles.apply}
                     /> 
                     : null
                 }
 
                 
             </form>
-        </>
+        </div>
 
      );
 }

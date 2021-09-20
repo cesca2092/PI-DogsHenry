@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    /* justify-content:space-evenly; */
+    height: 100vh;
+    background-image: url('./../../background.png');
+    padding: 0;
+    margin: 0;
+}
+
+.dogImages {
+    width: 200px;
+    height: 150px;
+    display: flex;
+    align-self: center;
+}
+
+.list {
+    display: flex;
+    flex-flow:wrap;
+    width: 1000px;
+    /* align-items: center; */
+}

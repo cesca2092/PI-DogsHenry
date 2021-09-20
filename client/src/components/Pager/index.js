@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPrevtOffset, setNextOffset, setDogsPerPage} from '../actions';
+import { setPrevtOffset, setNextOffset, setDogsPerPage} from '../../actions';
+import styles from './Pager.module.css'
 
 const Pager = () => {
     const dispatch = useDispatch();
@@ -10,13 +11,14 @@ const Pager = () => {
     
     return ( 
 
-        <div>
+        <div className={styles.container}>
             { offset < 1 ? null :
                 <button
                     onClick={()=>{
                         dispatch(setPrevtOffset());
                         dispatch(setDogsPerPage(dogs));
                     }}
+                    className={styles.buttons}
                 >Prev</button>
             }
 
@@ -26,6 +28,7 @@ const Pager = () => {
                         dispatch(setNextOffset());
                         dispatch(setDogsPerPage(dogs));
                     }}
+                    className={styles.buttons}
                 >Next</button>
             }
         </div>

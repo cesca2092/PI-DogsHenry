@@ -1,21 +1,26 @@
-const { Dog, conn } = require('../../src/db.js');
+const { Temperament, conn } = require('../../src/db.js');
 const { expect } = require('chai');
 
-describe('Dog model', () => {
+describe('Temperament model', () => {
   before(() => conn.authenticate()
     .catch((err) => {
       console.error('Unable to connect to the database:', err);
     }));
   describe('Validators', () => {
-    beforeEach(() => Dog.sync({ force: true }));
+    beforeEach(() => Temperament.sync({ force: true }));
     describe('name', () => {
       it('should throw an error if name is null', (done) => {
-        Dog.create({})
-          .then(() => done(new Error('It requires a valid name')))
-          .catch(() => done());
+        Temperament.create({})
+          .then(res=>new Error(done(res)))
+          .catch(error => {
+            // console.log(error)
+            done()
+          });
       });
-      it('should work when its a valid name', () => {
-        Dog.create({ name: 'Pug' });
+      it('should work when its a valid name', (done) => {
+        Temperament.create({ name: 'active' })
+          .then(()=>done())
+          .catch(error => new Error(done(error)))
       });
     });
   });

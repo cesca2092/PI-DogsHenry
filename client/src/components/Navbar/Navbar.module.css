@@ -1,0 +1,24 @@
+.container{
+    display: flex;
+    top:0px;
+    width: 100%;
+    /* flex-direction: row; */
+    height: 50px;
+    justify-content:space-around;
+    align-items: center;
+    background-color: #F9E79F ;
+}
+
+.buttons {
+    height: 25px;
+    border-radius: 10px;
+    background-color: white;
+    color: #1F618D;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.container :hover .buttons {
+    background-color: #1F618D;
+    color: white;
+}

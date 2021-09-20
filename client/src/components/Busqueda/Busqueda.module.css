@@ -1,0 +1,16 @@
+.input {
+    /* border-radius: 5px; */
+    margin: 5px;
+}
+
+.search {
+    height: 25px;
+    border-radius: 10px;
+    background-color: white;
+    color: #1F618D;
+    font-weight: bold;
+}
+.form :hover .search  {
+    background-color: #1F618D;
+    color: white;
+}

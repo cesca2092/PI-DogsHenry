@@ -51,8 +51,8 @@ const consultaAPI = async (name) => {
 
     
     const url = name ? 
-        `https://api.thedogapi.com/v1/breeds/search?q=${name}` 
-        : `https://api.thedogapi.com/v1/breeds`;
+        `https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key${API_KEY}` 
+        : `https://api.thedogapi.com/v1/breeds?api_key${API_KEY}`;
 
     const consulta = await fetch(url)
     const respuesta = await consulta.json();
@@ -63,7 +63,7 @@ const consultaAPI = async (name) => {
 
     const apiDog = name ? 
         dogFilter.map(async dogApi => {
-            const dogImg = await fetch(`https://api.thedogapi.com/v1/images/${dogApi.reference_image_id}`);           
+            const dogImg = await fetch(`https://api.thedogapi.com/v1/images/${dogApi.reference_image_id}?api_key${API_KEY}`);           
             const dog = await dogImg.json();
             return dog;
         })
@@ -129,7 +129,7 @@ const buildLocalArrayById = (array) => {
 }
 
 const apiArrayById = async (id) => {
-    const url = `https://api.thedogapi.com/v1/breeds`;
+    const url = `https://api.thedogapi.com/v1/breeds?api_key${API_KEY}`;
     const request = await fetch(url);
     const allDogs = await request.json()
 
@@ -137,7 +137,7 @@ const apiArrayById = async (id) => {
     
     let temperament = dog[0].temperament ? 
                     dog[0].temperament.split(',').map(e=>e.trim().toLowerCase())
-                    : 'No temperaments registered';
+                    : {msg:'No temperaments registered'};
 
     let image = dog[0].image.url ? 
                     dog[0].image.url
@@ -164,9 +164,8 @@ const apiArrayById = async (id) => {
 
 
 
-router.get('/', async (req,res) => {
+router.get('/', async (req,res,next) => {
     const {name} = req.query;
-
     try {
         const local = await consultaLocal(name);
         const api = await consultaAPI(name);
@@ -175,9 +174,11 @@ router.get('/', async (req,res) => {
                         [...local, ...api] 
                         : { msg:"Can't find dog breed"};
 
-        res.json(data);
+        res.status(200).json(data);
 
     } catch (error) {
+        next(error)
+        res.status(400).send(error);
         console.log(error);
     }
     
@@ -199,11 +200,12 @@ router.get('/:idBreed', async (req,res) => {
                     id: idBreed
                 }
             });
-            res.json(buildLocalArrayById(consulta))
+            res.status(200).json(buildLocalArrayById(consulta));
             
         }
     } catch (error) {
-        console.log(error)
+        res.status(400).send(error);
+        console.log(error);
     }
 
 });

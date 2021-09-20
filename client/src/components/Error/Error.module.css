@@ -1,0 +1,9 @@
+.msg{
+    border-radius: 10px;
+    width: 350px ;
+    height: 500px auto;
+    border: 1px solid black; /* outline no deja hacer border-radius */
+    margin: 10px auto;
+    background-color: #EC7063;
+    padding: 20px;
+}
