@@ -1,0 +1,13 @@
+.buttons {
+    height: 25px;
+    border-radius: 10px;
+    background-color: white;
+    color: #1F618D;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.container :hover{
+    background-color: #1F618D;
+    color: white;
+}

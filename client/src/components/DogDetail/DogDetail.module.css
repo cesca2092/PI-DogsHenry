@@ -1,0 +1,35 @@
+.container {
+    border-radius: 10px;
+    display: flex;
+    width: 1000px;
+    height: 500px;
+    border: 1px solid black; /* outline no deja hacer border-radius */
+    margin: 10px auto;
+    overflow: hidden;
+    background-color: #F9E79F;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 40px;    
+}
+
+.details span{
+    font-weight: bold;
+    color: black;
+}
+
+.dogImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image{
+    height: 60%;
+    padding: 40px;
+}

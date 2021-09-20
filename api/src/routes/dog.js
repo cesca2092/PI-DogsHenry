@@ -38,11 +38,11 @@ router.post('/', async (req,res) => {
             
         })
     
-        res.json({msg:"Dog Breed saved Successfully"})
+        res.status(200).json({msg:"Dog Breed saved Successfully"})
 
     } catch (error) {
-        // console.log(error);
-        res.json({error});
+        console.log(error);
+        res.status(400).send(error);
     }
     
 

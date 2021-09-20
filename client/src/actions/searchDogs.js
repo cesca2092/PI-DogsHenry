@@ -9,7 +9,8 @@ export function searchDogs(name){
                 dispatch({
                     type: SEARCH_DOGS,
                     payload: result
-                })
+                    }
+                )
             })
     }
 }

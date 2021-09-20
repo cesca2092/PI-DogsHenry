@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOrder, restartOffsetLimit, setDogsPerPage } from '../actions';
+import { setOrder, restartOffsetLimit, setDogsPerPage } from '../../actions';
+import styles from './Order.module.css'
 
 const Order = () => {
 
@@ -12,7 +13,7 @@ const Order = () => {
     const [orderflow, setOrderFlow] = useState('asc')
 
     return ( 
-        <>
+        <div className={styles.container}>
             {/* <h2>Order here</h2> */}
             <form
                 onSubmit={e => {
@@ -20,6 +21,7 @@ const Order = () => {
                     dispatch(setOrder(ordertype,orderflow));
                     dispatch(restartOffsetLimit());
                     dispatch(setDogsPerPage(dogs));
+                    // setOrderType('');
                 }}
             >
                 <select
@@ -42,12 +44,13 @@ const Order = () => {
                     <input
                         type='submit'
                         value='Order!'
+                        className={styles.order}
                     />           
                 :null}
 
                 
             </form>
-        </>
+        </div>
      );
 }
  

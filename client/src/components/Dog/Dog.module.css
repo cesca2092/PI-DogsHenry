@@ -1,0 +1,39 @@
+.container {
+    border-radius: 10px;
+    display: flex;
+    width: 200px;
+    height: fit-content;
+    flex-flow: column wrap;
+    border: 1px solid black; /* outline no deja hacer border-radius */
+    margin: 10px auto;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-color: #F9E79F;  
+}
+
+.dogImages {
+    width: 200px;
+    height: 150px;
+    display: flex;
+    align-self: center;
+}
+
+.tempe{
+    display: none;  
+}
+
+.tempe .temptitle{
+    text-align: center;
+}
+
+.breed{
+    color: black;
+}
+
+.container :hover .tempe{
+    color: black;
+    display:inline;
+    font-weight: bold;
+    text-align:left;
+}

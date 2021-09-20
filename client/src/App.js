@@ -5,6 +5,7 @@ import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar';
 import Dogs from './components/Dogs';
 import DogDetail from './components/DogDetail';
+import NewDog from './components/NewDog';
 
 function App() {
   return (
@@ -21,8 +22,8 @@ function App() {
         <Dogs />
       </Route>
 
-      <Route path='/home/newbreed'>
-        
+      <Route path='/home/newdog'>
+        <NewDog />
       </Route>
 
       <Route path='/home/detail'>
